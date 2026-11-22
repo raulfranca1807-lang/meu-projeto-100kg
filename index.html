@@ -1,39 +1,173 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#183d32"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Projeto 100kg"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><title>Meu Projeto 100 kg</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#183d32">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Projeto 80kg">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Projeto 80 KG</title>
 <style>
-:root{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#18231e;background:#f3f6f3;--green:#1d6547;--line:#dce5de;--muted:#64736a}*{box-sizing:border-box}body{margin:0;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}header{background:linear-gradient(135deg,#183d32,#28634a);color:white;padding:24px 18px 20px;border-radius:0 0 22px 22px}.eyebrow{font-size:11px;letter-spacing:1.4px;opacity:.8}.hero{font-size:27px;font-weight:800;margin:7px 0}.sub{font-size:13px;opacity:.8}.stats{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;margin-top:20px}.stats b{display:block;font-size:20px}.stats span{font-size:11px;opacity:.75}.wrap{padding:16px;max-width:680px;margin:auto}.section-title{font-weight:750;margin:18px 0 10px;font-size:17px}.card,.meal{background:white;border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #183d3208}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.muted{color:var(--muted);font-size:12px}.big{font-size:24px;font-weight:800}.bar{height:8px;background:#e7eee9;border-radius:10px;overflow:hidden;margin-top:8px}.fill{height:100%;background:#25865b;border-radius:10px;width:0}.macros{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.macros b{font-size:14px}.meal h3{font-size:15px;margin:0}.meal ul{padding-left:19px;line-height:1.7;font-size:14px}.meal label,.shopping label{display:flex;align-items:center;gap:9px;font-size:14px;margin-top:12px}.meal input,.shopping input{width:19px;height:19px;accent-color:var(--green)}button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 13px;font-weight:650;color:#193d2e}button.primary{background:var(--green);color:white;border-color:var(--green)}input[type=number]{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;font-size:16px}.water-actions{display:flex;gap:8px;margin-top:12px}.water-actions button{flex:1}.shopping{display:grid;grid-template-columns:1fr 1fr;gap:8px}.shopping label{margin:0}.notice{font-size:11px;line-height:1.5;color:var(--muted);padding:12px}.install{display:none;margin:12px 0}.history{font-size:13px;line-height:1.8;color:var(--muted)}
-</style></head><body>
-<header><div class="eyebrow">NUTRIÇÃO • DISCIPLINA • PERFORMANCE</div><div class="hero">Meu Projeto 100 kg</div><div class="sub">Seu acompanhamento diário de alimentação e evolução</div><div class="stats"><div><b>110 kg</b><span>Peso inicial</span></div><div><b>100 kg</b><span>Objetivo</span></div><div><b id="remaining">10 kg</b><span>Restantes</span></div></div></header>
+:root{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#18231e;background:#f3f6f3;--green:#1d6547;--line:#dce5de;--muted:#64736a;--red:#a43b32}
+*{box-sizing:border-box}body{margin:0;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+header{background:linear-gradient(135deg,#183d32,#28634a);color:white;padding:24px 18px 20px;border-radius:0 0 22px 22px}
+.eyebrow{font-size:11px;letter-spacing:1.4px;opacity:.8}.hero{font-size:28px;font-weight:800;margin:7px 0}.sub{font-size:13px;opacity:.85}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;margin-top:20px;gap:8px}.stats b{display:block;font-size:21px}.stats span{font-size:11px;opacity:.78}
+.wrap{padding:14px;max-width:760px;margin:auto}.section-title{font-weight:800;margin:22px 0 10px;font-size:17px}
+.card,.meal{background:white;border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #183d3208}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.muted{color:var(--muted);font-size:12px}.big{font-size:24px;font-weight:800}
+.bar{height:9px;background:#e7eee9;border-radius:10px;overflow:hidden;margin-top:8px}.fill{height:100%;background:#25865b;border-radius:10px;width:0}
+button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 13px;font-weight:650;color:#193d2e;cursor:pointer}
+button.primary{background:var(--green);color:white;border-color:var(--green)}button.danger{color:var(--red);border-color:#efd5d2}
+input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;font:inherit;background:white;color:#18231e}
+textarea{min-height:76px;resize:vertical}label.field{display:block;font-size:12px;color:var(--muted);font-weight:650;margin:10px 0 5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.meal h3{margin:0;font-size:15px}.meal .meal-inputs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
+.checkline{display:flex;align-items:center;gap:8px;font-size:14px;margin-top:12px}.checkline input,.symptoms input{width:18px;height:18px;accent-color:var(--green)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.symptoms{display:grid;grid-template-columns:1fr 1fr;gap:9px}.symptoms label{display:flex;align-items:center;gap:7px;font-size:13px}
+.entry{border-top:1px solid var(--line);padding:12px 0}.entry:first-child{border-top:0}.entry strong{font-size:14px}
+.notice{font-size:11px;line-height:1.55;color:var(--muted);padding:12px 2px}.history{font-size:13px;line-height:1.7;color:var(--muted)}
+.water-actions{display:flex;gap:8px;margin-top:12px}.water-actions button{flex:1}
+.install{display:none;margin:12px 0}.tabnav{display:flex;gap:8px;overflow:auto;padding:12px 14px 2px;max-width:760px;margin:auto}
+.tabnav button{white-space:nowrap}.tabnav button.active{background:#e1eee6;border-color:#a9c8b5}
+.panel[hidden]{display:none!important}.tag{font-size:11px;padding:4px 8px;border-radius:20px;background:#e8f1eb;color:#24583f}
+.smallbtn{padding:6px 9px;font-size:12px}
+@media(max-width:480px){.grid2{grid-template-columns:1fr 1fr}.stats b{font-size:19px}.meal .meal-inputs{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="eyebrow">NUTRIÇÃO • CONSISTÊNCIA • EVOLUÇÃO</div>
+ <div class="hero">Projeto 80 KG</div>
+ <div class="sub">Acompanhamento de alimentação, peso e aplicações</div>
+ <div class="stats">
+  <div><b id="currentWeight">110 kg</b><span>Peso atual</span></div>
+  <div><b>80 kg</b><span>Meta final</span></div>
+  <div><b id="remaining">30 kg</b><span>Para a meta</span></div>
+ </div>
+</header>
+<nav class="tabnav">
+ <button class="active" data-tab="nutrition">Nutrição</button>
+ <button data-tab="weight">Peso</button>
+ <button data-tab="applications">Aplicações</button>
+</nav>
 <main class="wrap">
-<button class="primary install" id="installBtn">Instalar aplicativo</button>
-<div class="row section-title"><span>Painel diário</span><button id="resetDay">Reiniciar dia</button></div>
-<div class="card"><div class="row"><b>🔥 Calorias consumidas</b><b id="calText">0 / 2.200 kcal</b></div><div class="bar"><div class="fill" id="calBar"></div></div><div class="macros"><div><span class="muted">Proteína</span><br><b id="pText">0 / 180 g</b><div class="bar"><div class="fill" id="pBar"></div></div></div><div><span class="muted">Carboidratos</span><br><b id="cText">0 / 220 g</b><div class="bar"><div class="fill" id="cBar"></div></div></div><div><span class="muted">Gorduras</span><br><b id="fText">0 / 67 g</b><div class="bar"><div class="fill" id="fBar"></div></div></div></div><p class="muted">Valores estimados das refeições marcadas.</p></div>
-<div class="section-title">🍽️ Suas 4 refeições</div>
-<div id="meals"></div>
-<div class="section-title">💧 Controle de água</div><div class="card"><div class="row"><b>Água consumida</b><b id="waterText">0 / 2,5 L</b></div><div class="bar"><div class="fill" id="waterBar"></div></div><div class="water-actions"><button id="waterMinus">− 250 ml</button><button class="primary" id="waterPlus">+ 250 ml</button></div><p class="muted">Meta inicial ajustável às suas necessidades e orientação profissional.</p></div>
-<div class="section-title">⚖️ Registro de peso</div><div class="card"><div class="row"><input id="weightInput" type="number" min="1" max="400" step="0.1" placeholder="Peso atual em kg"><button class="primary" id="saveWeight">Registrar</button></div><div class="history" id="weightHistory">Nenhum registro adicional.</div></div>
-<div class="section-title">🛒 Lista de compras — 7 dias</div><div class="card shopping" id="shopping"></div>
-<div class="section-title">🏋️ Rotina</div><div class="card"><div class="row"><span>Musculação</span><b>4 vezes por semana</b></div><hr style="border:0;border-top:1px solid var(--line);margin:12px 0"><div class="row"><span>Horário do treino</span><b>07:30</b></div><hr style="border:0;border-top:1px solid var(--line);margin:12px 0"><div class="row"><span>Cardio</span><b>Conforme recuperação</b></div><hr style="border:0;border-top:1px solid var(--line);margin:12px 0"><div class="row"><span>Sono</span><b>7–9 horas</b></div></div>
-<p class="notice">Plano de acompanhamento pessoal. Calorias e macros são estimativas, não uma prescrição clínica. Confirme as porções e metas com nutricionista. Os registros ficam salvos neste aparelho.</p>
+ <button class="primary install" id="installBtn">Instalar aplicativo</button>
+
+ <section class="panel" id="panel-nutrition">
+  <div class="section-title">🔥 Painel diário</div>
+  <div class="card">
+   <div class="row"><b>Calorias consumidas</b><b id="calText">0 / 1.800 kcal</b></div>
+   <div class="bar"><div class="fill" id="calBar"></div></div>
+   <div class="grid2" style="margin-top:14px">
+    <div><label class="field">Meta diária</label><div class="big">1.800 kcal</div></div>
+    <div><label class="field">Refeições</label><div class="big">3 por dia</div></div>
+   </div>
+   <p class="muted">Registre as calorias e proteínas de cada refeição. Os totais são somados automaticamente.</p>
+  </div>
+  <div class="section-title">🍽️ Registro das 3 refeições</div>
+  <div id="meals"></div>
+  <div class="card">
+   <div class="row"><b>Proteína registrada</b><b id="proteinText">0 g</b></div>
+   <div class="muted">Soma das proteínas informadas nas refeições.</div>
+  </div>
+  <div class="section-title">💧 Controle de água</div>
+  <div class="card">
+   <div class="row"><b>Água consumida</b><b id="waterText">0 / 2,5 L</b></div>
+   <div class="bar"><div class="fill" id="waterBar"></div></div>
+   <div class="water-actions"><button id="waterMinus">− 250 ml</button><button class="primary" id="waterPlus">+ 250 ml</button></div>
+   <p class="muted">Meta de água ilustrativa; ajuste com orientação profissional.</p>
+  </div>
+  <button id="resetDay">Reiniciar registros de hoje</button>
+ </section>
+
+ <section class="panel" id="panel-weight" hidden>
+  <div class="section-title">⚖️ Evolução do peso</div>
+  <div class="card">
+   <div class="grid2">
+    <div><span class="muted">Peso inicial</span><div class="big">110 kg</div></div>
+    <div><span class="muted">Meta</span><div class="big">80 kg</div></div>
+   </div>
+   <div class="bar"><div class="fill" id="progressBar"></div></div>
+   <p class="muted" id="progressText">Início do acompanhamento: 0 kg perdidos.</p>
+   <label class="field" for="weightInput">Nova pesagem (kg)</label>
+   <div class="row"><input id="weightInput" type="number" min="1" max="400" step="0.1" placeholder="Ex.: 108,5"><button class="primary" id="saveWeight">Registrar</button></div>
+  </div>
+  <div class="card"><b>Histórico de pesagens</b><div class="history" id="weightHistory" style="margin-top:8px">Nenhuma pesagem registrada.</div></div>
+ </section>
+
+ <section class="panel" id="panel-applications" hidden>
+  <div class="section-title">💉 Controle de aplicações</div>
+  <div class="card">
+   <div class="row"><b>Próxima aplicação prevista</b><span class="tag">Conforme prescrição</span></div>
+   <div class="big" id="nextDateDisplay" style="margin-top:8px">Não informada</div>
+   <p class="muted">O aplicativo registra as datas informadas por você; não calcula nem recomenda mudanças de dose ou intervalo.</p>
+  </div>
+  <div class="card">
+   <b>Registrar aplicação</b>
+   <label class="field" for="appDate">Data da aplicação</label><input id="appDate" type="date">
+   <div class="grid2">
+    <div><label class="field" for="appDose">Dose aplicada (mg)</label><input id="appDose" inputmode="decimal" placeholder="Ex.: 2,5"></div>
+    <div><label class="field" for="appProduct">Produto / marca informada</label><input id="appProduct" value="TG" placeholder="Informe como consta no produto"></div>
+   </div>
+   <label class="field" for="nextAppDate">Data da próxima aplicação prevista</label><input id="nextAppDate" type="date">
+   <label class="field" for="appSite">Local da aplicação</label>
+   <select id="appSite"><option value="">Não informado</option><option>Abdômen</option><option>Coxa</option><option>Braço</option><option>Outro</option></select>
+   <label class="field">Sintomas observados</label>
+   <div class="symptoms" id="symptomOptions">
+    <label><input type="checkbox" value="Náusea"> Náusea</label>
+    <label><input type="checkbox" value="Vômito"> Vômito</label>
+    <label><input type="checkbox" value="Dor abdominal"> Dor abdominal</label>
+    <label><input type="checkbox" value="Refluxo"> Refluxo</label>
+    <label><input type="checkbox" value="Constipação"> Constipação</label>
+    <label><input type="checkbox" value="Diarreia"> Diarreia</label>
+    <label><input type="checkbox" value="Dor de cabeça"> Dor de cabeça</label>
+    <label><input type="checkbox" value="Fadiga"> Fadiga</label>
+    <label><input type="checkbox" value="Redução do apetite"> Redução do apetite</label>
+    <label><input type="checkbox" value="Outro"> Outro</label>
+   </div>
+   <div class="grid2">
+    <div><label class="field" for="symptomSeverity">Intensidade dos sintomas</label><select id="symptomSeverity"><option value="">Não se aplica / não informado</option><option>Leve</option><option>Moderada</option><option>Forte</option></select></div>
+    <div><label class="field" for="symptomDuration">Duração</label><input id="symptomDuration" placeholder="Ex.: 1 dia"></div>
+   </div>
+   <label class="field" for="appNotes">Observações</label><textarea id="appNotes" placeholder="Horário, reação, dúvidas para levar ao profissional de saúde..."></textarea>
+   <button class="primary" id="saveApplication" style="width:100%;margin-top:13px">Salvar aplicação</button>
+  </div>
+  <div class="card"><div class="row"><b>Histórico de aplicações</b><span class="tag" id="appCount">0 registros</span></div><div id="applicationHistory" class="history" style="margin-top:8px">Nenhuma aplicação registrada.</div></div>
+  <p class="notice">Este registro é apenas um diário pessoal, não substitui avaliação médica. Confirme com um profissional a identidade, composição, procedência e regularidade do produto, além da dose e do intervalo prescritos. Procure atendimento médico diante de sintomas intensos ou persistentes; dor abdominal forte e contínua, vômitos persistentes ou sinais de desidratação exigem avaliação rápida.</p>
+ </section>
+
+ <p class="notice">Seus registros são salvos no armazenamento local deste navegador/aparelho. Eles não são enviados automaticamente para a nuvem. Faça backup periódico dos dados.</p>
+ <div class="row" style="margin:10px 0 24px"><button id="exportData">Exportar backup</button><button class="danger" id="clearData">Apagar dados locais</button></div>
 </main>
 <script>
-const meals=[
-{time:'06:40',name:'Pré-treino',items:['3 ovos inteiros','50 g de aveia','150 g de mamão','1 fatia de pão integral','Café sem açúcar'],p:32,c:64,f:19},
-{time:'10:00',name:'Pós-treino',items:['170 g de peito de frango','180 g de arroz cozido','130 g de maçã'],p:58,c:69,f:7},
-{time:'14:00',name:'Almoço',items:['130 g de peito de frango','130 g de arroz cozido','100 g de brócolis','10 g de azeite'],p:46,c:44,f:15},
-{time:'20:00',name:'Jantar',items:['150 g de patinho moído','200 g de batata inglesa','100 g de legumes','13 g de azeite'],p:44,c:44,f:26}];
-const groceries=['Frango · 2,5 kg','Patinho · 1,4 kg','Ovos · 21 un.','Arroz · 1,1 kg','Aveia · 350 g','Batata · 1,8 kg','Pão integral','Mamão','Maçã · 7 un.','Legumes · 1,5 kg','Azeite · 160 g'];
-const $=id=>document.getElementById(id);const today=()=>new Date().toLocaleDateString('en-CA');let state={date:today(),checked:[],water:0,weights:[],shopping:[]};
-try{const saved=JSON.parse(localStorage.getItem('p100-state'));if(saved)state={...state,...saved};}catch(e){}
-if(state.date!==today()){state.date=today();state.checked=[];state.water=0;}
-function persist(){localStorage.setItem('p100-state',JSON.stringify(state));}
-function renderMeals(){$('meals').innerHTML=meals.map((m,i)=>`<section class="meal"><div class="row"><h3>${m.time} · ${m.name}</h3><span class="muted">Refeição ${i+1}</span></div><ul>${m.items.map(x=>`<li>${x}</li>`).join('')}</ul><div class="muted">${m.p} g proteína · ${m.c} g carboidratos · ${m.f} g gorduras</div><label><input type="checkbox" data-meal="${i}" ${state.checked.includes(i)?'checked':''}> Refeição concluída</label></section>`).join('');document.querySelectorAll('[data-meal]').forEach(el=>el.addEventListener('change',()=>{const i=+el.dataset.meal;state.checked=el.checked?[...new Set([...state.checked,i])]:state.checked.filter(x=>x!==i);persist();update();}));}
-function update(){let p=0,c=0,f=0;state.checked.forEach(i=>{p+=meals[i].p;c+=meals[i].c;f+=meals[i].f});const kcal=p*4+c*4+f*9;$('calText').textContent=`${kcal.toLocaleString('pt-BR')} / 2.200 kcal`;$('calBar').style.width=Math.min(100,kcal/2200*100)+'%';[['p',p,180],['c',c,220],['f',f,67]].forEach(([k,v,t])=>{$(k+'Text').textContent=`${v} / ${t} g`;$ (k+'Bar').style.width=Math.min(100,v/t*100)+'%'});$('waterText').textContent=(state.water/1000).toLocaleString('pt-BR')+' / 2,5 L';$('waterBar').style.width=Math.min(100,state.water/2500*100)+'%';const last=state.weights[0]?.v??110;$('remaining').textContent=Math.max(0,last-100).toFixed(1).replace('.',',')+' kg';$('weightHistory').textContent=state.weights.length?state.weights.slice(0,10).map(x=>`${x.d}: ${x.v.toFixed(1).replace('.',',')} kg`).join(' · '):'Nenhum registro adicional.';}
-$('waterPlus').onclick=()=>{state.water=Math.min(5000,state.water+250);persist();update()};$('waterMinus').onclick=()=>{state.water=Math.max(0,state.water-250);persist();update()};$('resetDay').onclick=()=>{if(confirm('Reiniciar refeições e água de hoje?')){state.checked=[];state.water=0;persist();renderMeals();update()}};
-$('saveWeight').onclick=()=>{const v=Number($('weightInput').value);if(!v||v<1||v>400){alert('Digite um peso válido.');return}state.weights.unshift({v,d:new Date().toLocaleDateString('pt-BR')});persist();$('weightInput').value='';update()};
-$('shopping').innerHTML=groceries.map((g,i)=>`<label><input type="checkbox" data-shop="${i}" ${state.shopping.includes(i)?'checked':''}> ${g}</label>`).join('');document.querySelectorAll('[data-shop]').forEach(el=>el.onchange=()=>{const i=+el.dataset.shop;state.shopping=el.checked?[...state.shopping,i]:state.shopping.filter(x=>x!==i);persist()});
-renderMeals();update();
-let promptInstall=null;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();promptInstall=e;$('installBtn').style.display='block'});$('installBtn').onclick=async()=>{if(promptInstall){promptInstall.prompt();await promptInstall.userChoice;promptInstall=null}else alert('No iPhone, use Compartilhar no Safari e depois Adicionar à Tela de Início.')};if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
-</script></body></html>
+const $=id=>document.getElementById(id);
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const mealNames=['Café da manhã','Almoço','Jantar'];
+let state={date:today(),meals:[{kcal:0,protein:0,done:false},{kcal:0,protein:0,done:false},{kcal:0,protein:0,done:false}],water:0,weights:[],applications:[],nextAppDate:''};
+try{const old=JSON.parse(localStorage.getItem('p100-state')||'null');if(old){state.weights=Array.isArray(old.weights)?old.weights:[];state.water=Number(old.water)||0;}}catch(e){}
+try{const saved=JSON.parse(localStorage.getItem('p80-state')||'null');if(saved)state={...state,...saved};}catch(e){}
+function persist(){localStorage.setItem('p80-state',JSON.stringify(state));}
+function renderMeals(){
+ $('meals').innerHTML=mealNames.map((name,i)=>{const m=state.meals[i]||{kcal:0,protein:0,done:false};return `<div class="meal"><div class="row"><h3>${name}</h3><span class="tag">Refeição ${i+1}</span></div><div class="meal-inputs"><div><label class="field">Calorias (kcal)</label><input type="number" min="0" step="1" data-kcal="${i}" value="${m.kcal||''}" placeholder="Ex.: 550"></div><div><label class="field">Proteína (g)</label><input type="number" min="0" step="1" data-protein="${i}" value="${m.protein||''}" placeholder="Ex.: 45"></div></div><label class="checkline"><input type="checkbox" data-done="${i}" ${m.done?'checked':''}> Refeição realizada</label></div>`}).join('');
+ document.querySelectorAll('[data-kcal],[data-protein]').forEach(el=>el.addEventListener('input',()=>{const i=+(el.dataset.kcal??el.dataset.protein);const key=el.hasAttribute('data-kcal')?'kcal':'protein';state.meals[i][key]=Math.max(0,Number(el.value)||0);persist();updateNutrition()}));
+ document.querySelectorAll('[data-done]').forEach(el=>el.addEventListener('change',()=>{state.meals[+el.dataset.done].done=el.checked;persist()}));
+}
+function updateNutrition(){const kcal=state.meals.reduce((s,m)=>s+(Number(m.kcal)||0),0),protein=state.meals.reduce((s,m)=>s+(Number(m.protein)||0),0);$('calText').textContent=`${kcal.toLocaleString('pt-BR')} / 1.800 kcal`;$('calBar').style.width=Math.min(100,kcal/1800*100)+'%';$('proteinText').textContent=protein.toLocaleString('pt-BR')+' g';$('waterText').textContent=(state.water/1000).toLocaleString('pt-BR')+' / 2,5 L';$('waterBar').style.width=Math.min(100,state.water/2500*100)+'%'}
+function renderWeights(){const last=state.weights[0]?.v??110;const lost=110-last;$('currentWeight').textContent=last.toFixed(1).replace('.',',')+' kg';$('remaining').textContent=Math.max(0,last-80).toFixed(1).replace('.',',')+' kg';$('progressBar').style.width=Math.max(0,Math.min(100,lost/30*100))+'%';$('progressText').textContent=lost>0?`${lost.toFixed(1).replace('.',',')} kg perdidos desde o início. Faltam ${Math.max(0,last-80).toFixed(1).replace('.',',')} kg para a meta.`:`${Math.abs(lost).toFixed(1).replace('.',',')} kg acima do peso inicial registrado (110 kg).`; $('weightHistory').innerHTML=state.weights.length?state.weights.map((x,i)=>`<div class="entry"><div class="row"><span>${x.d}</span><strong>${Number(x.v).toFixed(1).replace('.',',')} kg</strong></div></div>`).join(''):'Nenhuma pesagem registrada.'}
+function renderApplications(){$('appCount').textContent=state.applications.length+' registros';$('nextDateDisplay').textContent=state.nextAppDate?new Date(state.nextAppDate+'T12:00:00').toLocaleDateString('pt-BR'):'Não informada';$('applicationHistory').innerHTML=state.applications.length?[...state.applications].reverse().map((a,idx)=>`<div class="entry"><div class="row"><strong>${new Date(a.date+'T12:00:00').toLocaleDateString('pt-BR')} · ${a.product||'Produto não informado'}</strong><button class="smallbtn danger" data-delete-app="${state.applications.length-1-idx}">Excluir</button></div><div>${a.dose?`Dose registrada: ${a.dose} mg · `:''}${a.site||'Local não informado'}</div><div>${a.symptoms?.length?'Sintomas: '+a.symptoms.join(', '):'Sem sintomas registrados'}${a.severity?' · Intensidade: '+a.severity:''}${a.duration?' · Duração: '+a.duration:''}</div>${a.nextDate?`<div>Próxima prevista: ${new Date(a.nextDate+'T12:00:00').toLocaleDateString('pt-BR')}</div>`:''}${a.notes?`<div>Observações: ${a.notes}</div>`:''}</div>`).join(''):'Nenhuma aplicação registrada.';document.querySelectorAll('[data-delete-app]').forEach(b=>b.onclick=()=>{if(confirm('Excluir este registro de aplicação?')){state.applications.splice(+b.dataset.deleteApp,1);persist();renderApplications()}})}
+$('waterPlus').onclick=()=>{state.water=Math.min(6000,state.water+250);persist();updateNutrition()};$('waterMinus').onclick=()=>{state.water=Math.max(0,state.water-250);persist();updateNutrition()};
+$('resetDay').onclick=()=>{if(confirm('Zerar calorias, proteínas e água de hoje?')){state.meals=mealNames.map(()=>({kcal:0,protein:0,done:false}));state.water=0;persist();renderMeals();updateNutrition()}};
+$('saveWeight').onclick=()=>{const v=Number($('weightInput').value.replace(',','.'));if(!v||v<1||v>400){alert('Informe um peso válido.');return}state.weights.unshift({v,d:new Date().toLocaleDateString('pt-BR')});persist();$('weightInput').value='';renderWeights()};
+$('saveApplication').onclick=()=>{const date=$('appDate').value;if(!date){alert('Informe a data da aplicação.');return}const symptoms=[...document.querySelectorAll('#symptomOptions input:checked')].map(x=>x.value);const a={date,dose:$('appDose').value.trim(),product:$('appProduct').value.trim(),nextDate:$('nextAppDate').value,site:$('appSite').value,symptoms,severity:$('symptomSeverity').value,duration:$('symptomDuration').value.trim(),notes:$('appNotes').value.trim()};state.applications.push(a);state.applications.sort((x,y)=>x.date.localeCompare(y.date));state.nextAppDate=a.nextDate||state.nextAppDate;persist();renderApplications();$('appDose').value='';$('appDate').value='';$('nextAppDate').value='';$('appSite').value='';$('symptomOptions').querySelectorAll('input').forEach(x=>x.checked=false);$('symptomSeverity').value='';$('symptomDuration').value='';$('appNotes').value='';alert('Aplicação registrada neste aparelho.')};
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(x=>x.hidden=x.id!=='panel-'+b.dataset.tab)});
+$('exportData').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='backup-projeto-80kg.json';a.click();URL.revokeObjectURL(a.href)};
+$('clearData').onclick=()=>{if(confirm('Apagar todos os registros deste aplicativo neste navegador? Esta ação não pode ser desfeita.')){localStorage.removeItem('p80-state');localStorage.removeItem('p100-state');location.reload()}};
+renderMeals();updateNutrition();renderWeights();renderApplications();
+let promptInstall=null;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();promptInstall=e;$('installBtn').style.display='block'});$('installBtn').onclick=async()=>{if(promptInstall){promptInstall.prompt();await promptInstall.userChoice;promptInstall=null}else alert('No iPhone, use Compartilhar no Safari e depois Adicionar à Tela de Início.')};
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+</script>
+</body></html>
