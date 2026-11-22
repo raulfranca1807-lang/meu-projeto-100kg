@@ -69,7 +69,54 @@ textarea{min-height:76px;resize:vertical}label.field{display:block;font-size:12p
    <p class="muted">Registre as calorias e proteínas de cada refeição. Os totais são somados automaticamente.</p>
   </div>
   <div class="section-title">🍽️ Registro das 3 refeições</div>
-  <div id="meals"></div>
+  
+  <div id="meals">
+   <div class="meal">
+    <div class="row"><h3>06:40 · Café da manhã / Pré-treino</h3><span class="tag">Refeição 1</span></div>
+    <ul>
+     <li>2 a 3 ovos inteiros (aprox. 2½ unidades)</li>
+     <li>40 g de aveia</li>
+     <li>120 g de mamão</li>
+     <li>1 fatia pequena de pão integral (aprox. 30 g)</li>
+     <li>Café sem açúcar</li>
+    </ul>
+    <div class="muted">Macros estimados: 26 g proteína · 52 g carboidratos · 15 g gorduras · 453 kcal</div>
+    <label class="checkline"><input type="checkbox" data-plan-done="0"> Refeição concluída</label>
+   </div>
+   <div class="meal">
+    <div class="row"><h3>10:00–14:00 · Almoço / Pós-treino</h3><span class="tag">Refeição 2</span></div>
+    <ul>
+     <li>245 g de peito de frango</li>
+     <li>250 g de arroz cozido</li>
+     <li>105 g de maçã</li>
+     <li>80 g de brócolis</li>
+     <li>8 g de azeite</li>
+    </ul>
+    <div class="muted">Macros estimados: 85 g proteína · 92 g carboidratos · 18 g gorduras · 870 kcal</div>
+    <label class="checkline"><input type="checkbox" data-plan-done="1"> Refeição concluída</label>
+   </div>
+   <div class="meal">
+    <div class="row"><h3>20:00 · Jantar</h3><span class="tag">Refeição 3</span></div>
+    <ul>
+     <li>120 g de patinho moído</li>
+     <li>160 g de batata inglesa</li>
+     <li>80 g de legumes</li>
+     <li>11 g de azeite</li>
+    </ul>
+    <div class="muted">Macros estimados: 36 g proteína · 36 g carboidratos · 21 g gorduras · 478 kcal</div>
+    <label class="checkline"><input type="checkbox" data-plan-done="2"> Refeição concluída</label>
+   </div>
+  </div>
+  <div class="card">
+   <b>Macros estimados do cardápio completo</b>
+   <div class="grid3" style="margin-top:10px">
+    <div><div class="big">147 g</div><div class="muted">Proteínas</div></div>
+    <div><div class="big">180 g</div><div class="muted">Carboidratos</div></div>
+    <div><div class="big">54 g</div><div class="muted">Gorduras</div></div>
+   </div>
+   <p class="muted">Valores aproximados; podem variar conforme marcas, cortes, preparo e pesagem dos alimentos.</p>
+  </div>
+
   <div class="card">
    <div class="row"><b>Proteína registrada</b><b id="proteinText">0 g</b></div>
    <div class="muted">Soma das proteínas informadas nas refeições.</div>
@@ -147,20 +194,35 @@ textarea{min-height:76px;resize:vertical}label.field{display:block;font-size:12p
 const $=id=>document.getElementById(id);
 const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 const mealNames=['Café da manhã','Almoço','Jantar'];
-let state={date:today(),meals:[{kcal:0,protein:0,done:false},{kcal:0,protein:0,done:false},{kcal:0,protein:0,done:false}],water:0,weights:[],applications:[],nextAppDate:''};
+let state={date:today(),meals:[{done:false},{done:false},{done:false}],water:0,weights:[],applications:[],nextAppDate:''};
 try{const old=JSON.parse(localStorage.getItem('p100-state')||'null');if(old){state.weights=Array.isArray(old.weights)?old.weights:[];state.water=Number(old.water)||0;}}catch(e){}
 try{const saved=JSON.parse(localStorage.getItem('p80-state')||'null');if(saved)state={...state,...saved};}catch(e){}
 function persist(){localStorage.setItem('p80-state',JSON.stringify(state));}
 function renderMeals(){
- $('meals').innerHTML=mealNames.map((name,i)=>{const m=state.meals[i]||{kcal:0,protein:0,done:false};return `<div class="meal"><div class="row"><h3>${name}</h3><span class="tag">Refeição ${i+1}</span></div><div class="meal-inputs"><div><label class="field">Calorias (kcal)</label><input type="number" min="0" step="1" data-kcal="${i}" value="${m.kcal||''}" placeholder="Ex.: 550"></div><div><label class="field">Proteína (g)</label><input type="number" min="0" step="1" data-protein="${i}" value="${m.protein||''}" placeholder="Ex.: 45"></div></div><label class="checkline"><input type="checkbox" data-done="${i}" ${m.done?'checked':''}> Refeição realizada</label></div>`}).join('');
- document.querySelectorAll('[data-kcal],[data-protein]').forEach(el=>el.addEventListener('input',()=>{const i=+(el.dataset.kcal??el.dataset.protein);const key=el.hasAttribute('data-kcal')?'kcal':'protein';state.meals[i][key]=Math.max(0,Number(el.value)||0);persist();updateNutrition()}));
- document.querySelectorAll('[data-done]').forEach(el=>el.addEventListener('change',()=>{state.meals[+el.dataset.done].done=el.checked;persist()}));
+ document.querySelectorAll('[data-plan-done]').forEach(el=>{
+  el.checked=!!(state.meals[+el.dataset.planDone]||{}).done;
+  el.addEventListener('change',()=>{
+   const i=+el.dataset.planDone;
+   state.meals[i]=state.meals[i]||{};
+   state.meals[i].done=el.checked;
+   persist();updateNutrition();
+  });
+ });
 }
-function updateNutrition(){const kcal=state.meals.reduce((s,m)=>s+(Number(m.kcal)||0),0),protein=state.meals.reduce((s,m)=>s+(Number(m.protein)||0),0);$('calText').textContent=`${kcal.toLocaleString('pt-BR')} / 1.800 kcal`;$('calBar').style.width=Math.min(100,kcal/1800*100)+'%';$('proteinText').textContent=protein.toLocaleString('pt-BR')+' g';$('waterText').textContent=(state.water/1000).toLocaleString('pt-BR')+' / 2,5 L';$('waterBar').style.width=Math.min(100,state.water/2500*100)+'%'}
+function updateNutrition(){
+ const plan=[{kcal:453,protein:26},{kcal:870,protein:85},{kcal:478,protein:36}];
+ const kcal=plan.reduce((s,m,i)=>s+((state.meals[i]||{}).done?m.kcal:0),0);
+ const protein=plan.reduce((s,m,i)=>s+((state.meals[i]||{}).done?m.protein:0),0);
+ $('calText').textContent=`${kcal.toLocaleString('pt-BR')} / 1.800 kcal`;
+ $('calBar').style.width=Math.min(100,kcal/1800*100)+'%';
+ $('proteinText').textContent=protein.toLocaleString('pt-BR')+' g';
+ $('waterText').textContent=(state.water/1000).toLocaleString('pt-BR')+' / 2,5 L';
+ $('waterBar').style.width=Math.min(100,state.water/2500*100)+'%';
+}
 function renderWeights(){const last=state.weights[0]?.v??110;const lost=110-last;$('currentWeight').textContent=last.toFixed(1).replace('.',',')+' kg';$('remaining').textContent=Math.max(0,last-80).toFixed(1).replace('.',',')+' kg';$('progressBar').style.width=Math.max(0,Math.min(100,lost/30*100))+'%';$('progressText').textContent=lost>0?`${lost.toFixed(1).replace('.',',')} kg perdidos desde o início. Faltam ${Math.max(0,last-80).toFixed(1).replace('.',',')} kg para a meta.`:`${Math.abs(lost).toFixed(1).replace('.',',')} kg acima do peso inicial registrado (110 kg).`; $('weightHistory').innerHTML=state.weights.length?state.weights.map((x,i)=>`<div class="entry"><div class="row"><span>${x.d}</span><strong>${Number(x.v).toFixed(1).replace('.',',')} kg</strong></div></div>`).join(''):'Nenhuma pesagem registrada.'}
 function renderApplications(){$('appCount').textContent=state.applications.length+' registros';$('nextDateDisplay').textContent=state.nextAppDate?new Date(state.nextAppDate+'T12:00:00').toLocaleDateString('pt-BR'):'Não informada';$('applicationHistory').innerHTML=state.applications.length?[...state.applications].reverse().map((a,idx)=>`<div class="entry"><div class="row"><strong>${new Date(a.date+'T12:00:00').toLocaleDateString('pt-BR')} · ${a.product||'Produto não informado'}</strong><button class="smallbtn danger" data-delete-app="${state.applications.length-1-idx}">Excluir</button></div><div>${a.dose?`Dose registrada: ${a.dose} mg · `:''}${a.site||'Local não informado'}</div><div>${a.symptoms?.length?'Sintomas: '+a.symptoms.join(', '):'Sem sintomas registrados'}${a.severity?' · Intensidade: '+a.severity:''}${a.duration?' · Duração: '+a.duration:''}</div>${a.nextDate?`<div>Próxima prevista: ${new Date(a.nextDate+'T12:00:00').toLocaleDateString('pt-BR')}</div>`:''}${a.notes?`<div>Observações: ${a.notes}</div>`:''}</div>`).join(''):'Nenhuma aplicação registrada.';document.querySelectorAll('[data-delete-app]').forEach(b=>b.onclick=()=>{if(confirm('Excluir este registro de aplicação?')){state.applications.splice(+b.dataset.deleteApp,1);persist();renderApplications()}})}
 $('waterPlus').onclick=()=>{state.water=Math.min(6000,state.water+250);persist();updateNutrition()};$('waterMinus').onclick=()=>{state.water=Math.max(0,state.water-250);persist();updateNutrition()};
-$('resetDay').onclick=()=>{if(confirm('Zerar calorias, proteínas e água de hoje?')){state.meals=mealNames.map(()=>({kcal:0,protein:0,done:false}));state.water=0;persist();renderMeals();updateNutrition()}};
+$('resetDay').onclick=()=>{if(confirm('Desmarcar as refeições e zerar a água de hoje?')){state.meals=mealNames.map(()=>({done:false}));state.water=0;persist();renderMeals();updateNutrition()}};
 $('saveWeight').onclick=()=>{const v=Number($('weightInput').value.replace(',','.'));if(!v||v<1||v>400){alert('Informe um peso válido.');return}state.weights.unshift({v,d:new Date().toLocaleDateString('pt-BR')});persist();$('weightInput').value='';renderWeights()};
 $('saveApplication').onclick=()=>{const date=$('appDate').value;if(!date){alert('Informe a data da aplicação.');return}const symptoms=[...document.querySelectorAll('#symptomOptions input:checked')].map(x=>x.value);const a={date,dose:$('appDose').value.trim(),product:$('appProduct').value.trim(),nextDate:$('nextAppDate').value,site:$('appSite').value,symptoms,severity:$('symptomSeverity').value,duration:$('symptomDuration').value.trim(),notes:$('appNotes').value.trim()};state.applications.push(a);state.applications.sort((x,y)=>x.date.localeCompare(y.date));state.nextAppDate=a.nextDate||state.nextAppDate;persist();renderApplications();$('appDose').value='';$('appDate').value='';$('nextAppDate').value='';$('appSite').value='';$('symptomOptions').querySelectorAll('input').forEach(x=>x.checked=false);$('symptomSeverity').value='';$('symptomDuration').value='';$('appNotes').value='';alert('Aplicação registrada neste aparelho.')};
 document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(x=>x.hidden=x.id!=='panel-'+b.dataset.tab)});
